@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const SearchBar = ({ term, onChange }) => {
+  const handleChange = (e) => {
+    onChange(e.target.value);
+  };
+  return <input type="text" id="s" value={term} onChange={handleChange} />;
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const App = () => {
+  const [term, setTerm] = useState('');
+  const updateSearchTerm = (term) => {
+    setTerm(term);
+  };
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Metal Recommends...</h1>
+      </header>
+      <SearchBar term={term} onChange={updateSearchTerm} />
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
