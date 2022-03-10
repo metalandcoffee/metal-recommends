@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-const SearchBar = ({ term, onChange }) => {
+const SearchBar = ({ onChange }) => {
+  // Track current search term locally until form is submitted.
+  const [localTerm, setLocalTerm] = useState('');
   const handleChange = (e) => {
-    onChange(e.target.value);
+    setLocalTerm(e.target.value);
   };
-  return <input type="text" id="s" value={term} onChange={handleChange} />;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onChange(localTerm);
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" id="s" value={localTerm} onChange={handleChange} />
+    </form>
+  );
 };
 
 const App = () => {
   const [term, setTerm] = useState('');
+  console.log(term);
   const updateSearchTerm = (term) => {
     setTerm(term);
   };
