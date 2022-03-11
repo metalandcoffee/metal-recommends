@@ -6,11 +6,15 @@ import './index.css';
 // @link https://stackoverflow.com/questions/65655885/why-does-using-async-await-in-map-function-still-return-promises-and-not-the-res
 async function setAlbumArtworks(artists) {
   let artistsTopAlbum = await artists.map( async (artist) => {
-    const topAlbum = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist.name}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`)
+    const data = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist.name}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`)
     .then(response => response.json())
-    .then(data => (data.topalbums));
-    console.log(topAlbum);
-    return {name: artist.name, albumTitle: topAlbum.album[0].name, image: topAlbum.album[0].image[3]['#text'] };
+    .then(data => (data));
+    //console.log(topAlbum);
+    return {
+      name: artist.name,
+      albumTitle: undefined === data.topalbums ? data.topalbums.album[0].name : 'N/A',
+      image: data.topalbums.album[0].image[3]['#text']
+    };
   });
   artistsTopAlbum = await Promise.all(artistsTopAlbum);
   console.log(artistsTopAlbum);
