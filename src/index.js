@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // Helper function to get top album artwork for queried artists.
+// @link https://stackoverflow.com/questions/65655885/why-does-using-async-await-in-map-function-still-return-promises-and-not-the-res
 async function setAlbumArtworks(artists) {
-  const artistsTopAlbum = await artists.map( async (artist) => {
+  let artistsTopAlbum = await artists.map( async (artist) => {
     const topAlbum = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist.name}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`)
     .then(response => response.json())
-    .then(data => {
-      return 'hi';
-    })
+    .then(data => (data.topalbums));
+    console.log(topAlbum);
+    return {name: artist.name, albumTitle: topAlbum.album[0].name, image: topAlbum.album[0].image[3]['#text'] };
   });
+  artistsTopAlbum = await Promise.all(artistsTopAlbum);
   console.log(artistsTopAlbum);
   return artistsTopAlbum;
 }
@@ -60,7 +62,12 @@ const Results = ({ term }) => {
   return (
     <div id="results">{Array.isArray(artists) ? artists.map(artist => {
       return (
-        <p key={artist.name}>{artist.name}</p>
+        <li key={artist.name}>
+          <img src={artist.image} alt={artist.albumTitle} />
+          <p>{artist.name}</p>
+          <p>{artist.albumTitle}</p>
+        </li>
+        
       )
     }) : artists}</div>
   )
