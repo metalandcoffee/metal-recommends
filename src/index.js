@@ -2,23 +2,30 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+/**
+ * 
+ * Test Cases:
+ * Tora
+ * Doja Cat
+ * Cult of Luna
+ * Opeth
+ * Parcels
+ * Lil Nas
+ */
+
 // Helper function to get top album artwork for queried artists.
 // @link https://stackoverflow.com/questions/65655885/why-does-using-async-await-in-map-function-still-return-promises-and-not-the-res
 async function setAlbumArtworks(artists) {
-  let artistsTopAlbum = await artists.map( async (artist) => {
+  let artistsTopAlbum = artists.map(async (artist) => {
     const data = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist.name}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`)
-    .then(response => response.json())
-    .then(data => (data));
-    //console.log(topAlbum);
+      .then(response => response.json());
     return {
       name: artist.name,
-      albumTitle: undefined === data.topalbums ? data.topalbums.album[0].name : 'N/A',
-      image: data.topalbums.album[0].image[3]['#text']
+      albumTitle: undefined !== data.topalbums && 0 < data.topalbums.album.length ? data.topalbums.album[0].name : 'N/A',
+      image: undefined !== data.topalbums && 0 < data.topalbums.album.length ? data.topalbums.album[0].image[3]['#text'] : 'https://via.placeholder.com/300'
     };
   });
-  artistsTopAlbum = await Promise.all(artistsTopAlbum);
-  console.log(artistsTopAlbum);
-  return artistsTopAlbum;
+  return await Promise.all(artistsTopAlbum);
 }
 
 /**
@@ -64,16 +71,16 @@ const Results = ({ term }) => {
   }, [term]);
 
   return (
-    <div id="results">{Array.isArray(artists) ? artists.map(artist => {
+    <ul id="results">{Array.isArray(artists) ? artists.map(artist => {
       return (
         <li key={artist.name}>
           <img src={artist.image} alt={artist.albumTitle} />
           <p>{artist.name}</p>
           <p>{artist.albumTitle}</p>
         </li>
-        
+
       )
-    }) : artists}</div>
+    }) : artists}</ul>
   )
 }
 
