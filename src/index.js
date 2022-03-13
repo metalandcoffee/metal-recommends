@@ -53,7 +53,7 @@ const Results = ({ term }) => {
       const resultsPromise = response.json();
       return resultsPromise;
     };
-    const getAlbum = async (artist) => {
+    const getTopAlbum = async (artist) => {
       const response = await fetch(
         `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist.name}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`
       );
@@ -66,7 +66,7 @@ const Results = ({ term }) => {
       const artists = results.similarartists.artist;
       const artistsTopAlbum = await Promise.all(
         artists.map(async (artist) => {
-          const album = await getAlbum(artist);
+          const album = await getTopAlbum(artist);
           return {
             name: artist.name,
             albumTitle:
