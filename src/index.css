@@ -1,4 +1,57 @@
+html {
+	font-size: 100%;
+}
+
 body {
+	margin: 0;
 	background-color: #151414;
 	color: white;
+}
+
+form {
+	display: grid;
+    grid-template-columns: 10px 1fr;
+	align-items: center;
+	box-shadow: #5f5b5b 0px 0px 2px;
+	padding: 5px;
+	grid-column-gap: 10px;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+input {
+	color: white;
+	width: 100%;
+	border: none;
+	background: transparent;
+}
+
+input::focus-visible {
+	outline: none;
+}
+
+svg {
+	fill: white;
+}
+
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+#results {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	list-style: none;
 }

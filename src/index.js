@@ -28,9 +28,18 @@ const SearchBar = ({ onSubmit }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" id="s" value={localTerm} onChange={handleChange} />
+      <SearchIcon />
+      <input type="text" id="s" value={localTerm} onChange={handleChange} placeholder="Metal Recommends..." />
     </form>
   );
+};
+
+const SearchIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z" />
+    </svg>
+  )
 };
 
 /**
@@ -46,13 +55,13 @@ const Results = ({ term }) => {
 
     const getArtists = async () => {
       const response = await fetch(
-        `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${
-          process.env.REACT_APP_LAST_FM_API_KEY
+        `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY
         }&format=json&limit=9`
       );
       const resultsPromise = response.json();
       return resultsPromise;
     };
+
     const getTopAlbum = async (artist) => {
       const response = await fetch(
         `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist.name}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`
@@ -74,7 +83,7 @@ const Results = ({ term }) => {
                 ? album.topalbums.album[0].name
                 : 'N/A',
             image:
-            album?.topalbums?.album?.[0] && '' !== album.topalbums.album[0].image[3]['#text']
+              album?.topalbums?.album?.[0] && '' !== album.topalbums.album[0].image[3]['#text']
                 ? album.topalbums.album[0].image[3]['#text']
                 : 'https://via.placeholder.com/300',
           };
@@ -89,14 +98,14 @@ const Results = ({ term }) => {
     <ul id="results">
       {0 < artists.length
         ? artists.map((artist) => {
-            return (
-              <li key={artist.name}>
-                <img src={artist.image} alt={artist.albumTitle} />
-                <p>{artist.name}</p>
-                <p>{artist.albumTitle}</p>
-              </li>
-            );
-          })
+          return (
+            <li key={artist.name}>
+              <img src={artist.image} alt={artist.albumTitle} />
+              <p>{artist.name}</p>
+              <p>{artist.albumTitle}</p>
+            </li>
+          );
+        })
         : 'Type in an artist to receive album recommendations from similar artists✨'}
     </ul>
   );
@@ -113,9 +122,9 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Metal Recommends...</h1>
+        <h1 className="screen-reader-text">Metal Recommends...</h1>
+        <SearchBar onSubmit={updateSearchTerm} />
       </header>
-      <SearchBar onSubmit={updateSearchTerm} />
       <Results term={term} />
     </div>
   );
