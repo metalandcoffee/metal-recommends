@@ -4,8 +4,7 @@
 
 Website: [tbd](tbd)
 
-
-Users can visit the [Metal Recommends App](https://www.affirmations.madewithtech.com/) for recommendations of albums they should check out based on the artists or bands that they like. ✨
+Users can visit the [Metal Recommends App]() for recommendations of albums they should check out based on the artists or bands that they like. ✨
 
 ![App Screenshot](public/app-screenshot.png)
 
@@ -19,7 +18,7 @@ View the recommended albums by similar artists!
 
 ## Behind the Scenes
 
-This project uses the [Last.fm API](https://www.last.fm/api) to make accurate album recommendations based on the user's input of their favorite artist or band.
+This project uses the [Last.fm API](https://www.last.fm/api) to make accurate album recommendations based on the user's input of their favorite artist or band. Haven't heard of Last.fm? It's a website that enables you to track the music you listen to via various stream platforms. Check out Metal & Coffee's Last.fm [profile](https://www.last.fm/user/metalandcoffee).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
