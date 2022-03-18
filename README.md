@@ -1,12 +1,12 @@
 # Metal Recommends
 
-[insert heroku status]
+![Heroku](https://heroku-badge.herokuapp.com/?app=metal-recommends)
 
-Website: [tbd](tbd)
+Website: [https://metal-recommends.herokuapp.com/](https://metal-recommends.herokuapp.com/)
 
-Users can visit the [Metal Recommends App]() for recommendations of albums they should check out based on the artists or bands that they like. ✨
+Users can visit the [Metal Recommends App](https://metal-recommends.herokuapp.com/) for recommendations of albums they should check out based on the artists or bands that they like. ✨
 
-![App Screenshot](public/app-screenshot.png)
+![App Screenshot](public/app-screenshot.gif)
 
 ## How to Search for Recommendations
 
