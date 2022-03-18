@@ -64,7 +64,7 @@ const Results = ({ term }) => {
      *
      * Similar Artists Endpoint.
      * @link https://www.last.fm/api/show/artist.getSimilar
-     * @link http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9
+     * @link https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9
      */
     const getArtists = async () => {/* insert code here */};
 
@@ -73,7 +73,7 @@ const Results = ({ term }) => {
      *
      * Top Albums by Given Artist Endpoint.
      * @link https://www.last.fm/api/show/artist.getTopAlbums
-     * @link http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1
+     * @link https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1
      *
      * @param {string} artist
      */
