@@ -66,7 +66,15 @@ const Results = ({ term }) => {
      * @link https://www.last.fm/api/show/artist.getSimilar
      * @link http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9
      */
-    const getArtists = async () => {/* insert code here */};
+    const getArtists = async () => {
+      const response = await fetch(
+        `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${
+          process.env.REACT_APP_LAST_FM_API_KEY
+        }&format=json&limit=9`
+      );
+      const resultsPromise = response.json();
+      return resultsPromise;
+    };
 
     /**
      * Get top album based on given artist.
@@ -77,7 +85,13 @@ const Results = ({ term }) => {
      *
      * @param {string} artist
      */
-    const getTopAlbum = async (artist) => {/* insert code here */};
+    const getTopAlbum = async (artist) => {
+      const response = await fetch(
+        `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`
+      );
+      const resultsPromise = response.json();
+      return resultsPromise;
+    };
 
     /**
      * Call APIs and properly set artists state variable.
@@ -95,7 +109,35 @@ const Results = ({ term }) => {
               : 'https://via.placeholder.com/300',
         }
      */
-    const fetchAndSetResults = async () => {/* insert code here */};
+    const fetchAndSetResults = async () => {
+      let allArtists = await getArtists();
+
+      // If no results found, set artists to empty array and return;
+      if (allArtists.similarartists === undefined) {
+        setArtists([]);
+        return;
+      }
+
+      allArtists = allArtists.similarartists.artist;
+      const artistTopAlbum = await Promise.all(
+        allArtists.map(async (artist) => {
+          const album = await getTopAlbum(artist.name);
+          return {
+            name: artist.name,
+            albumTitle:
+              0 < album?.topalbums?.album?.length
+                ? album.topalbums.album[0].name
+                : 'N/A',
+            image:
+              album?.topalbums?.album?.[0] &&
+              '' !== album.topalbums.album[0].image[3]['#text']
+                ? album.topalbums.album[0].image[3]['#text']
+                : 'https://via.placeholder.com/300',
+          };
+        })
+      );
+      setArtists(artistTopAlbum);
+    };
 
     fetchAndSetResults().catch(console.error);
   }, [term]);

@@ -1,0 +1,42 @@
+{
+    "topalbums": {
+        "album": [
+            {
+                "name": "Heliocentric",
+                "playcount": 1438586,
+                "mbid": "b9e24663-b02d-40c7-9dae-67cb8389e0a5",
+                "url": "https://www.last.fm/music/The+Ocean/Heliocentric",
+                "artist": {
+                    "name": "The Ocean",
+                    "mbid": "8d0acf0e-c099-49ac-b4b3-d57ca9eb2561",
+                    "url": "https://www.last.fm/music/The+Ocean"
+                },
+                "image": [
+                    {
+                        "#text": "https://lastfm.freetls.fastly.net/i/u/34s/3cb45d4e87f62260dde02b23186a17d5.png",
+                        "size": "small"
+                    },
+                    {
+                        "#text": "https://lastfm.freetls.fastly.net/i/u/64s/3cb45d4e87f62260dde02b23186a17d5.png",
+                        "size": "medium"
+                    },
+                    {
+                        "#text": "https://lastfm.freetls.fastly.net/i/u/174s/3cb45d4e87f62260dde02b23186a17d5.png",
+                        "size": "large"
+                    },
+                    {
+                        "#text": "https://lastfm.freetls.fastly.net/i/u/300x300/3cb45d4e87f62260dde02b23186a17d5.png",
+                        "size": "extralarge"
+                    }
+                ]
+            }
+        ],
+        "@attr": {
+            "artist": "The Ocean",
+            "page": "1",
+            "perPage": "1",
+            "totalPages": "3007",
+            "total": "3007"
+        }
+    }
+}

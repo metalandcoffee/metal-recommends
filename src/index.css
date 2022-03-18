@@ -1,57 +1,71 @@
 html {
-	font-size: 100%;
+  font-size: 100%;
 }
 
 body {
-	margin: 0;
-	background-color: #151414;
-	color: white;
+  margin: 0;
+  background-color: #151414;
+  color: white;
+  font-family: 'Hubballi', cursive;
 }
 
 form {
-	display: grid;
-    grid-template-columns: 10px 1fr;
-	align-items: center;
-	box-shadow: #5f5b5b 0px 0px 2px;
-	padding: 5px;
-	grid-column-gap: 10px;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: center;
+  box-shadow: #5f5b5b 0px 0px 2px;
+  padding: 5px 20px;
+  grid-column-gap: 10px;
+  margin-bottom: 1rem;
 }
 
 img {
-	width: 100%;
-	height: auto;
+  width: 100%;
+  height: auto;
 }
 
 input {
-	color: white;
-	width: 100%;
-	border: none;
-	background: transparent;
+  font-family: 'Hubballi', cursive;
+  color: white;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 3rem;
 }
 
-input::focus-visible {
-	outline: none;
+input::placeholder {
+  color: grey;
+}
+input:focus-visible {
+  outline: none;
 }
 
 svg {
-	fill: white;
+  fill: grey;
 }
 
 .screen-reader-text {
-	border: 0;
-	clip: rect(1px, 1px, 1px, 1px);
-	clip-path: inset(50%);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-	word-wrap: normal !important;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
 }
 
 #results {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#results p {
+  grid-column: 1 / -1;
+  text-align: center;
 }
