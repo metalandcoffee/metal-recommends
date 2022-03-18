@@ -12,8 +12,6 @@ Users can visit the [Metal Recommends App](https://metal-recommends.herokuapp.co
 
 Type an artist that you like in the search box.
 
-[insert gif]
-
 View the recommended albums by similar artists!
 
 ## Behind the Scenes
