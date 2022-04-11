@@ -1,71 +1,87 @@
 html {
-  font-size: 100%;
+	font-size: 100%;
 }
 
 body {
-  margin: 0;
-  background-color: #151414;
-  color: white;
-  font-family: 'Hubballi', cursive;
+	margin: 0;
+	background-color: #151414;
+	color: white;
+	font-family: 'Hubballi', cursive;
 }
 
 form {
-  display: grid;
-  grid-template-columns: 26px 1fr;
-  align-items: center;
-  box-shadow: #5f5b5b 0px 0px 2px;
-  padding: 5px 20px;
-  grid-column-gap: 10px;
-  margin-bottom: 1rem;
+	display: grid;
+	grid-template-columns: 26px 1fr;
+	align-items: center;
+	box-shadow: #5f5b5b 0px 0px 2px;
+	padding: 5px 20px;
+	grid-column-gap: 10px;
+	margin-bottom: 1rem;
 }
 
 img {
-  width: 100%;
-  height: auto;
+	width: 100%;
+	height: auto;
 }
 
 input {
-  font-family: 'Hubballi', cursive;
-  color: white;
-  width: 100%;
-  border: none;
-  background: transparent;
-  font-size: 3rem;
+	font-family: 'Hubballi', cursive;
+	color: white;
+	width: 100%;
+	border: none;
+	background: transparent;
+	font-size: 3rem;
 }
 
 input::placeholder {
-  color: grey;
+	color: grey;
 }
 input:focus-visible {
-  outline: none;
+	outline: none;
 }
 
 svg {
-  fill: grey;
+	fill: grey;
 }
 
 .screen-reader-text {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-  word-wrap: normal !important;
-}
- 
-#results {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
 }
 
-#results p {
-  grid-column: 1 / -1;
-  text-align: center;
+#results {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#results li {
+	position: relative;
+}
+
+#results li p {
+	margin: 0;
+}
+
+#results li .artist-name {
+	font-size: 30px;
+}
+
+#results li .album-name {
+	font-size: 26px;
+}
+
+#results > p {
+	grid-column: 1 / -1;
+	text-align: center;
 }

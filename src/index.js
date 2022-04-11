@@ -60,21 +60,33 @@ const Results = ({ term }) => {
     }
 
     /**
-     * Get aimiliar artists based on search term (artist).
+     * Get similiar artists based on search term (artist).
      *
      * Similar Artists Endpoint.
      * @link https://www.last.fm/api/show/artist.getSimilar
      * @link https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9
      */
     const getArtists = async () => {
-      const response = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${
-          process.env.REACT_APP_LAST_FM_API_KEY
-        }&format=json&limit=9`
-      );
-      const resultsPromise = response.json();
-      return resultsPromise;
+      const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9`);
+      const jsonPromise = response.json();
+      return jsonPromise;
     };
+
+    /**
+     * Get additional information based on given artist.
+     *
+     * Similar Artists Endpoint.
+     * @link https://www.last.fm/api/show/artist.getInfo
+     * @link https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json
+     * 
+     * @param {string} artist
+     */
+    const getArtistInfo = async (artist) => {
+      const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json`);
+      const jsonPromise = response.json();
+      return jsonPromise;
+    };
+    
 
     /**
      * Get top album based on given artist.
@@ -86,11 +98,9 @@ const Results = ({ term }) => {
      * @param {string} artist
      */
     const getTopAlbum = async (artist) => {
-      const response = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`
-      );
-      const resultsPromise = response.json();
-      return resultsPromise;
+      const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=1`);
+      const jsonPromise = response.json();
+      return jsonPromise;
     };
 
     /**
@@ -110,33 +120,31 @@ const Results = ({ term }) => {
         }
      */
     const fetchAndSetResults = async () => {
-      let allArtists = await getArtists();
-
-      // If no results found, set artists to empty array and return;
-      if (allArtists.similarartists === undefined) {
+      const results = await getArtists();
+      if (results.error) {
         setArtists([]);
         return;
       }
-
-      allArtists = allArtists.similarartists.artist;
-      const artistTopAlbum = await Promise.all(
-        allArtists.map(async (artist) => {
-          const album = await getTopAlbum(artist.name);
-          return {
-            name: artist.name,
-            albumTitle:
-              0 < album?.topalbums?.album?.length
-                ? album.topalbums.album[0].name
-                : 'N/A',
-            image:
-              album?.topalbums?.album?.[0] &&
-              '' !== album.topalbums.album[0].image[3]['#text']
-                ? album.topalbums.album[0].image[3]['#text']
-                : 'https://via.placeholder.com/300',
-          };
-        })
-      );
-      setArtists(artistTopAlbum);
+      const artists = results.similarartists.artist;
+      const artistsTopAlbum = await Promise.all(artists.map( async (artist) => {
+        const album = await getTopAlbum(artist.name);
+        const info = await getArtistInfo(artist.name);
+        console.log(info);
+        return {
+          name: artist.name,
+          bio: info.artist.bio.summary,
+          albumTitle:
+            0 < album?.topalbums?.album?.length
+              ? album.topalbums.album[0].name
+              : 'N/A',
+          image:
+            album?.topalbums?.album?.[0] && '' !== album.topalbums.album[0].image[3]['#text']
+              ? album.topalbums.album[0].image[3]['#text']
+              : 'https://via.placeholder.com/300',
+        };
+      }));
+      console.log(artistsTopAlbum);
+      setArtists(artistsTopAlbum);
     };
 
     fetchAndSetResults().catch(console.error);
@@ -149,7 +157,8 @@ const Results = ({ term }) => {
             <li key={artist.name}>
               <img src={artist.image} alt={artist.albumTitle} />
               <p>{artist.name}</p>
-              <p>{artist.albumTitle}</p>
+              <p>{`"${artist.albumTitle}"`}</p>
+              <p dangerouslySetInnerHTML={{__html: artist.bio}} />
             </li>
           );
         })
@@ -169,7 +178,7 @@ const Results = ({ term }) => {
  * App Entrypoint Component.
  */
 const App = () => {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState('meshuggah');
   const updateSearchTerm = (term) => {
     setTerm(term);
   };

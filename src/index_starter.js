@@ -106,8 +106,11 @@ const Results = ({ term }) => {
           return (
             <li key={artist.name}>
               <img src={artist.image} alt={artist.albumTitle} />
-              <p>{artist.name}</p>
-              <p>{artist.albumTitle}</p>
+              <p>
+                <span>{artist.name}</span>
+                <span>{artist.albumTitle}</span>
+              </p>
+              <div className="overlay"></div>
             </li>
           );
         })
