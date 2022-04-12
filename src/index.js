@@ -67,7 +67,7 @@ const Results = ({ term }) => {
      * @link https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9
      */
     const getArtists = async () => {
-      const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=9`);
+      const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${term.toLowerCase()}&api_key=${process.env.REACT_APP_LAST_FM_API_KEY}&format=json&limit=8`);
       const jsonPromise = response.json();
       return jsonPromise;
     };
@@ -156,8 +156,8 @@ const Results = ({ term }) => {
           return (
             <li key={artist.name}>
               <img src={artist.image} alt={artist.albumTitle} />
-              <p>{artist.name}</p>
-              <p>{`"${artist.albumTitle}"`}</p>
+              <p className="artist-name">{artist.name}</p>
+              <p className="album-name">{`"${artist.albumTitle}"`}</p>
               <p dangerouslySetInnerHTML={{__html: artist.bio}} />
             </li>
           );
